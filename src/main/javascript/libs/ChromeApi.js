@@ -18,17 +18,25 @@
 var chrome = {
     runtime: {
         /**
+         * The callback used for triggering a simulated message event for a background page
+         */
+        backgroundPageCallback: null,
+
+        /**
+         * Last error message to occur
+         */
+        lastError: null,
+
+        /**
+         * Send a message to the background page
          *
-         *
-         * @param {string=undefined} extensionId
-         * @param data
-         * @param {object=undefined} options
-         * @param callback
+         * @param {string=undefined} extensionId Extension id
+         * @param data Message data
+         * @param {object=undefined} options Options
+         * @param callback Callback on successful delivery
          */
         sendMessage: function(/* option */ extensionId, data, /* option */ options, callback) {
-
-        },
-
-        lastError: null
+            backgroundPageCallback(extensionId, data, options, callback);
+        }
     }
 };
