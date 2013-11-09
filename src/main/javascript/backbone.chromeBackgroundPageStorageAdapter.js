@@ -1,3 +1,4 @@
+
 /*
  Copyright 2013 Simon Paulger <spaulger@codezen.co.uk>
 
@@ -57,13 +58,14 @@ var Backbone = Backbone || {};
          * before doing so.
          *
          * @param modelOrCollection Model or collection
-         * @param data
-         * @param callback
+         * @param data Raw data to be messaged
+         * @param options sync method options, to be passed in request trigger
+         * @param callback Callback on message completion
          * @private
          */
-        _sendBackgroundPageMessage: function(modelOrCollection, data, callback)
+        _sendBackgroundPageMessage: function(modelOrCollection, data, options, callback)
         {
-            modelOrCollection.trigger('request', model, data, options);
+            modelOrCollection.trigger('request', modelOrCollection, data, options);
             chrome.runtime.sendMessage(data, callback);
         },
 
@@ -76,10 +78,11 @@ var Backbone = Backbone || {};
          */
         _createRecord: function(model, options)
         {
+            var that = this;
             function callback(resp)
             {
                 if (chrome.runtime.lastError == null) {
-                    options.success(resp[this._options['respKeyName']]);
+                    options.success(resp[that._options['respKeyName']]);
                 } else {
                     options.error(chrome.runtime.lastError);
                 }
@@ -87,7 +90,7 @@ var Backbone = Backbone || {};
 
             var data = this._options['extraKeys'].concat(model.attributes);
             data[this._options['keyName']] = this._options['createKey'];
-            this._sendBackgroundPageMessage(model, data, callback);
+            this._sendBackgroundPageMessage(model, data, options, callback);
         },
 
         /**
@@ -99,10 +102,11 @@ var Backbone = Backbone || {};
          */
         _readRecord: function(modelOrCollection, options)
         {
+            var that = this;
             function callback(resp)
             {
                 if (chrome.runtime.lastError == null) {
-                    options.success(resp[this._options['respKeyName']]);
+                    options.success(resp[that._options['respKeyName']]);
                 } else {
                     options.error(chrome.runtime.lastError);
                 }
@@ -115,7 +119,7 @@ var Backbone = Backbone || {};
                 data = this._options['extraKeys'].concat({id: modelOrCollection.id});
             }
             data[this._options['keyName']] = this._options['readKey'];
-            this._sendBackgroundPageMessage(modelOrCollection, data, callback);
+            this._sendBackgroundPageMessage(modelOrCollection, data, options, callback);
         },
 
         /**
@@ -127,10 +131,11 @@ var Backbone = Backbone || {};
          */
         _updateRecord: function(model, options)
         {
+            var that = this;
             function callback(resp)
             {
                 if (chrome.runtime.lastError == null) {
-                    options.success(resp[this._options['respKeyName']]);
+                    options.success(resp[that._options['respKeyName']]);
                 } else {
                     options.error(chrome.runtime.lastError);
                 }
@@ -138,7 +143,7 @@ var Backbone = Backbone || {};
 
             var data = this._options['extraKeys'].concat(model.attributes);
             data[this._options['keyName']] = this._options['updateKey'];
-            this._sendBackgroundPageMessage(model, data, callback);
+            this._sendBackgroundPageMessage(model, data, options, callback);
         },
 
         /**
@@ -161,7 +166,7 @@ var Backbone = Backbone || {};
 
             var data = this._options['extraKeys'].concat({id: model.id});
             data[this._options['keyName']] = this._options['deleteKey'];
-            this._sendBackgroundPageMessage(model, data, callback);
+            this._sendBackgroundPageMessage(model, data, options, callback);
         },
 
         /**
