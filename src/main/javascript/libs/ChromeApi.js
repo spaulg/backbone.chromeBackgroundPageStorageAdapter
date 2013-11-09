@@ -35,7 +35,56 @@ var chrome = {
          * @param {object=undefined} options Options
          * @param callback Callback on successful delivery
          */
-        sendMessage: function(/*optional*/ extensionId, data, /*optional*/ options, callback) {
+        sendMessage: function(/*optional*/ extensionId, data, /*optional*/ options, callback)
+        {
+            if (arguments.length < 4) {
+                // Re-order parameters
+                /*
+                 Undefined options
+
+                 string
+                 string|object
+                 function
+                 undefined
+                 */
+                if (typeof extensionId === 'string' &&
+                    (typeof data === 'string' || typeof data === 'object') &&
+                    typeof options === 'function') {
+                    callback = options;
+                    options = undefined;
+
+                /*
+                 Undefined extensionId
+
+                 string|object
+                 object
+                 function
+                 undefined
+                 */
+                } else if ((typeof extensionId === 'string' || typeof extensionId === 'object') &&
+                            typeof data === 'object' &&
+                            typeof options === 'function') {
+                    callback = options;
+                    options = data;
+                    data = extensionId;
+                    extensionId = undefined;
+
+                 /*
+                   Undefined extensionId and options
+
+                   string|object
+                   function
+                   undefined
+                   undefined
+                  */
+                } else if (typeof data === 'function') {
+                    callback = data;
+                    data = extensionId;
+                    options = undefined;
+                    extensionId = undefined;
+                }
+            }
+
             backgroundPageCallback(extensionId, data, options, callback);
         }
     }
