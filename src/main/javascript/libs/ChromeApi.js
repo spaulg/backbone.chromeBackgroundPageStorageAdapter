@@ -35,7 +35,7 @@ var chrome = {
          * @param {object=undefined} options Options
          * @param callback Callback on successful delivery
          */
-        sendMessage: function(/* option */ extensionId, data, /* option */ options, callback) {
+        sendMessage: function(/*optional*/ extensionId, data, /*optional*/ options, callback) {
             backgroundPageCallback(extensionId, data, options, callback);
         }
     }
