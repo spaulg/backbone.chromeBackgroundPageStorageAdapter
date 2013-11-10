@@ -20,7 +20,7 @@ var Backbone = Backbone || {};
 (function(){
     'use strict';
 
-    Backbone.chromeBackgroundPageStorageAdapter = function(options)
+    Backbone.ChromeBackgroundPageStorageAdapter = function(options)
     {
         this._options = {
             /*
@@ -51,7 +51,7 @@ var Backbone = Backbone || {};
         this._options = this._options.concat(options);
     };
 
-    Backbone.chromeBackgroundPageStorageAdapter.prototype = {
+    Backbone.ChromeBackgroundPageStorageAdapter.prototype = {
         /**
          * Options for adapter configuration
          */
