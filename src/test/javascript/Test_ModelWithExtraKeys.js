@@ -51,7 +51,7 @@
         it("creates records in the background page correctly", function() {
             chrome.runtime.backgroundPageCallback = function(extensionId, data, options, callback) {
                 expect(data).toEqual({key1: 'foo', key2: 'bar', key3: 'baz',
-                    records: {name: 'Jim'}, method: 'createRecord'});
+                    records: {name: 'Jim'}, method: 'createBackboneRecord'});
                 callback({records: {id: ++idCounter}});
             };
 
@@ -73,7 +73,7 @@
         it("reads records from the background page correctly", function() {
             chrome.runtime.backgroundPageCallback = function(extensionId, data, options, callback) {
                 expect(data).toEqual({key1: 'foo', key2: 'bar', key3: 'baz',
-                    records: [{id: 1}], method: 'readRecord'});
+                    records: [{id: 1}], method: 'readBackboneRecord'});
                 callback({});
             };
 
@@ -95,7 +95,7 @@
         it("updates records to the background page correctly", function() {
             chrome.runtime.backgroundPageCallback = function(extensionId, data, options, callback) {
                 expect(data).toEqual({key1: 'foo', key2: 'bar', key3: 'baz',
-                    records: {id: 1, name: 'Bob'}, method: 'updateRecord'});
+                    records: {id: 1, name: 'Bob'}, method: 'updateBackboneRecord'});
                 callback({});
             };
 
@@ -117,7 +117,7 @@
         it("delete records from the background page correctly", function() {
             chrome.runtime.backgroundPageCallback = function(extensionId, data, options, callback) {
                 expect(data).toEqual({key1: 'foo', key2: 'bar', key3: 'baz',
-                    records: {id: 1}, method: 'deleteRecord'});
+                    records: {id: 1}, method: 'deleteBackboneRecord'});
                 callback({});
             };
 

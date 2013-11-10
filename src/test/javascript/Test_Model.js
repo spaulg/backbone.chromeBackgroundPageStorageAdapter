@@ -48,7 +48,7 @@
 
         it("creates records in the background page correctly", function() {
             chrome.runtime.backgroundPageCallback = function(extensionId, data, options, callback) {
-                expect(data).toEqual({records: {name: 'Jim'}, method: 'createRecord'});
+                expect(data).toEqual({records: {name: 'Jim'}, method: 'createBackboneRecord'});
                 callback({records: {id: ++idCounter}});
             };
 
@@ -69,7 +69,7 @@
 
         it("reads records from the background page correctly", function() {
             chrome.runtime.backgroundPageCallback = function(extensionId, data, options, callback) {
-                expect(data).toEqual({records: [{id: 1}], method: 'readRecord'});
+                expect(data).toEqual({records: [{id: 1}], method: 'readBackboneRecord'});
                 callback({});
             };
 
@@ -90,7 +90,7 @@
 
         it("updates records to the background page correctly", function() {
             chrome.runtime.backgroundPageCallback = function(extensionId, data, options, callback) {
-                expect(data).toEqual({records: {id: 1, name: 'Bob'}, method: 'updateRecord'});
+                expect(data).toEqual({records: {id: 1, name: 'Bob'}, method: 'updateBackboneRecord'});
                 callback({});
             };
 
@@ -111,7 +111,7 @@
 
         it("delete records from the background page correctly", function() {
             chrome.runtime.backgroundPageCallback = function(extensionId, data, options, callback) {
-                expect(data).toEqual({records: {id: 1}, method: 'deleteRecord'});
+                expect(data).toEqual({records: {id: 1}, method: 'deleteBackboneRecord'});
                 callback({});
             };
 

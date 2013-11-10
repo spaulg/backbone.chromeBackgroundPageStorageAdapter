@@ -43,11 +43,11 @@ var Backbone = Backbone || {};
               Set the key name and the value that is used when performing each CRUD operation
              */
             keyName:     'method',
-            createRecordKey:   'createRecord',
-            readRecordKey:     'readRecord',
-            readCollectionKey: 'readCollection',
-            updateRecordKey:   'updateRecord',
-            deleteRecordKey:   'deleteRecord',
+            createRecordKey:   'createBackboneRecord',
+            readRecordKey:     'readBackboneRecord',
+            readCollectionKey: 'readBackboneCollection',
+            updateRecordKey:   'updateBackboneRecord',
+            deleteRecordKey:   'deleteBackboneRecord',
 
             /*
               Request key name for sending records in the initial message call

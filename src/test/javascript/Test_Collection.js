@@ -59,7 +59,7 @@
 
         it("reads records for a collection from the background page correctly", function() {
             chrome.runtime.backgroundPageCallback = function(extensionId, data, options, callback) {
-                expect(data).toEqual({method: "readCollection"});
+                expect(data).toEqual({method: "readBackboneCollection"});
                 callback({records: [{id: 1, name: 'Jim'}, {id: 2, name: 'Bob'}]});
             };
 
@@ -79,7 +79,7 @@
 
         it("reads records for a model contained in a collection from the background page correctly", function() {
             chrome.runtime.backgroundPageCallback = function(extensionId, data, options, callback) {
-                expect(data).toEqual({records: [{id: 2}], method: 'readRecord'});
+                expect(data).toEqual({records: [{id: 2}], method: 'readBackboneRecord'});
                 callback({});
             };
 
