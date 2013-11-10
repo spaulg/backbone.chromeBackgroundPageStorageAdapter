@@ -1,4 +1,3 @@
-
 # Google Chrome background messaging API Storage Adapter
 
 A storage adapter for Google Chrome web browser extension writers that treats the
@@ -38,6 +37,8 @@ Any subsequent call to the sync method on a model or collection with the storage
 have its data sent to the background page for storage. As the save, fetch or destroy methods forward
 to the sync method associated to their respective model or collection, those calls will also be handled
 by the storage adapter and thus the background page.
+
+### Background page
 
 ## License
 
