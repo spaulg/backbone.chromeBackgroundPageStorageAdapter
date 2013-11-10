@@ -46,32 +46,43 @@ The background page must register an event handler to receive messages via a cal
 function onMessageCallback(request, sender, sendResponse) {
     switch (request.method) {
         case 'readCollection':
-            // ... do something to fetch the data and populate the sendResponse object with the items key
+            // ... do something to fetch the data and populate the
+            // sendResponse object with the items key
             // e.g. sendResponse = {records: [{id: 1, name: 'Jim'}, {id: 2, name: 'Bob'}]}
             break;
 
         case 'readRecord':
-            // ... do something to fetch the data and populate the sendResponse object with the items key
+            // ... do something to fetch the data and populate the
+            // sendResponse object with the items key
             // e.g. sendResponse = {records: {id: 1, name: 'Jim'}}
             break;
 
         case 'createRecord':
-            // ... do something to create the record. Make sure to populate the sendResponse object with an id attribute.
+            // ... do something to create the record. Make sure to populate
+            // the sendResponse object with an id attribute.
             // e.g. sendResponse = {records: {id: 1}}
             break;
 
         case 'updateRecord':
-            // ... do something to update the record, no need to return any data here
+            // ... do something to update the record, no need to
+            // return any data here
             break;
 
-        case 'deleteRecord:
-            // ... do something to delete the record, no need to return any data here
+        case 'deleteRecord':
+            // ... do something to delete the record, no need to
+            // return any data here
             break;
     }
 }
 
 chrome.runtime.onMessage.addListener(onMessageCallback);
 ```
+
+### Object key names
+
+You can change the key names and values used in the request object passed to background page by defining the
+keys to use when attaching an instance of the ChromeBackgroundPageStorageAdapter class to your models and
+collections.
 
 ## License
 
