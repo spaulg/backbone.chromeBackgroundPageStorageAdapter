@@ -50,14 +50,14 @@ var Backbone = Backbone || {};
             deleteRecordKey:   'deleteRecord',
 
             /*
-              Request key name for sending items in the initial message call
+              Request key name for sending records in the initial message call
              */
-            reqKeyName:  'items',
+            reqKeyName:  'records',
 
             /*
-              Response key name for finding items to send in the sync success callback
+              Response key name for finding records to send in the sync success callback
              */
-            respKeyName: 'items',
+            respKeyName: 'records',
 
             /*
               Additional static data sent in each request to the background page

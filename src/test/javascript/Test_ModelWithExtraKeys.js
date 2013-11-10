@@ -51,8 +51,8 @@
         it("creates records in the background page correctly", function() {
             chrome.runtime.backgroundPageCallback = function(extensionId, data, options, callback) {
                 expect(data).toEqual({key1: 'foo', key2: 'bar', key3: 'baz',
-                    items: {name: 'Jim'}, method: 'createRecord'});
-                callback({items: {id: ++idCounter}});
+                    records: {name: 'Jim'}, method: 'createRecord'});
+                callback({records: {id: ++idCounter}});
             };
 
             // Add attribute and save
@@ -73,7 +73,7 @@
         it("reads records from the background page correctly", function() {
             chrome.runtime.backgroundPageCallback = function(extensionId, data, options, callback) {
                 expect(data).toEqual({key1: 'foo', key2: 'bar', key3: 'baz',
-                    items: [{id: 1}], method: 'readRecord'});
+                    records: [{id: 1}], method: 'readRecord'});
                 callback({});
             };
 
@@ -95,7 +95,7 @@
         it("updates records to the background page correctly", function() {
             chrome.runtime.backgroundPageCallback = function(extensionId, data, options, callback) {
                 expect(data).toEqual({key1: 'foo', key2: 'bar', key3: 'baz',
-                    items: {id: 1, name: 'Bob'}, method: 'updateRecord'});
+                    records: {id: 1, name: 'Bob'}, method: 'updateRecord'});
                 callback({});
             };
 
@@ -117,7 +117,7 @@
         it("delete records from the background page correctly", function() {
             chrome.runtime.backgroundPageCallback = function(extensionId, data, options, callback) {
                 expect(data).toEqual({key1: 'foo', key2: 'bar', key3: 'baz',
-                    items: {id: 1}, method: 'deleteRecord'});
+                    records: {id: 1}, method: 'deleteRecord'});
                 callback({});
             };
 

@@ -25,8 +25,8 @@
                 updateRecordKey:   'update',
                 deleteRecordKey:   'delete',
 
-                reqKeyName:  'records',
-                respKeyName: 'records'
+                reqKeyName:  'items',
+                respKeyName: 'items'
             }),
 
             sync: function(method, model, options)
@@ -57,8 +57,8 @@
 
         it("creates records in the background page correctly", function() {
             chrome.runtime.backgroundPageCallback = function(extensionId, data, options, callback) {
-                expect(data).toEqual({records: {name: 'Jim'}, function: 'insert'});
-                callback({records: {id: ++idCounter}});
+                expect(data).toEqual({items: {name: 'Jim'}, function: 'insert'});
+                callback({items: {id: ++idCounter}});
             };
 
             // Add attribute and save
@@ -78,7 +78,7 @@
 
         it("reads records from the background page correctly", function() {
             chrome.runtime.backgroundPageCallback = function(extensionId, data, options, callback) {
-                expect(data).toEqual({records: [{id: 1}], function: 'select'});
+                expect(data).toEqual({items: [{id: 1}], function: 'select'});
                 callback({});
             };
 
@@ -99,7 +99,7 @@
 
         it("updates records to the background page correctly", function() {
             chrome.runtime.backgroundPageCallback = function(extensionId, data, options, callback) {
-                expect(data).toEqual({records: {id: 1, name: 'Bob'}, function: 'update'});
+                expect(data).toEqual({items: {id: 1, name: 'Bob'}, function: 'update'});
                 callback({});
             };
 
@@ -120,7 +120,7 @@
 
         it("delete records from the background page correctly", function() {
             chrome.runtime.backgroundPageCallback = function(extensionId, data, options, callback) {
-                expect(data).toEqual({records: {id: 1}, function: 'delete'});
+                expect(data).toEqual({items: {id: 1}, function: 'delete'});
                 callback({});
             };
 
