@@ -30,7 +30,12 @@
                     <preloadSources>
                         <source>src/libs/underscore.js</source>
                         <source>src/libs/backbone.js</source>
+                        <source>src/libs/ChromeApi.js</source>
                     </preloadSources>
+
+                    <sourceExcludes>
+                        <exclude>src/libs/**</exclude>
+                    </sourceExcludes>
                 </configuration>
 
                 <executions>

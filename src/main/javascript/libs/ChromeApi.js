@@ -85,7 +85,7 @@ var chrome = {
                 }
             }
 
-            backgroundPageCallback(extensionId, data, options, callback);
+            chrome.runtime.backgroundPageCallback(extensionId, data, options, callback);
         }
     }
 };

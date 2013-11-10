@@ -20,6 +20,22 @@ var Backbone = Backbone || {};
 (function(){
     'use strict';
 
+    function objectConcat() {
+        var target = {};
+
+        for (var objIndex = 0; objIndex < arguments.length; objIndex++) {
+            if (arguments[objIndex] != undefined) {
+                for (var key in arguments[objIndex]) {
+                    if (arguments[objIndex].hasOwnProperty(key)) {
+                        target[key] = arguments[objIndex][key];
+                    }
+                }
+            }
+        }
+
+        return target;
+    }
+
     Backbone.ChromeBackgroundPageStorageAdapter = function(options)
     {
         this._options = {
@@ -48,7 +64,7 @@ var Backbone = Backbone || {};
             extraKeys:   {}
         };
 
-        this._options = this._options.concat(options);
+        this._options = objectConcat(this._options, options);
     };
 
     Backbone.ChromeBackgroundPageStorageAdapter.prototype = {
@@ -93,7 +109,7 @@ var Backbone = Backbone || {};
                 }
             }
 
-            var data = this._options['extraKeys'].concat();
+            var data = objectConcat(this._options['extraKeys']);
             data[this._options['reqKeyName']] = model.attributes;
             data[this._options['keyName']] = this._options['createKey'];
             this._sendBackgroundPageMessage(model, data, options, callback);
@@ -118,9 +134,9 @@ var Backbone = Backbone || {};
                 }
             }
 
-            var data = this._options['extraKeys'].concat();
-            if (!modelOrCollection instanceof Backbone.Collection) {
-                data[this._options['reqKeyName']] = {id: modelOrCollection.id};
+            var data = objectConcat(this._options['extraKeys']);
+            if (!(modelOrCollection instanceof Backbone.Collection)) {
+                data[this._options['reqKeyName']] = [{id: modelOrCollection.id}];
             }
             data[this._options['keyName']] = this._options['readKey'];
             this._sendBackgroundPageMessage(modelOrCollection, data, options, callback);
@@ -145,7 +161,7 @@ var Backbone = Backbone || {};
                 }
             }
 
-            var data = this._options['extraKeys'].concat();
+            var data = objectConcat(this._options['extraKeys']);
             data[this._options['reqKeyName']] = model.attributes;
             data[this._options['keyName']] = this._options['updateKey'];
             this._sendBackgroundPageMessage(model, data, options, callback);
@@ -169,7 +185,7 @@ var Backbone = Backbone || {};
                 }
             }
 
-            var data = this._options['extraKeys'].concat();
+            var data = objectConcat(this._options['extraKeys']);
             data[this._options['reqKeyName']] = {id: model.id};
             data[this._options['keyName']] = this._options['deleteKey'];
             this._sendBackgroundPageMessage(model, data, options, callback);
