@@ -15,7 +15,7 @@ Designed to optionally be used with the backbone.storageProxy.js plugin.
 To send data to the background page for later storage (e.g. using the chrome storage APIs):
 ```html
 var model = Backbone.Model.extend({
-     this.backgroundPageStorage = new Backbone.chromeBackgroundPageStorageAdapter(),
+     backgroundPageStorage: new Backbone.chromeBackgroundPageStorageAdapter(),
 
      sync: function(method, model, options)
      {
