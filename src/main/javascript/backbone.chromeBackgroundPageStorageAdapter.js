@@ -81,11 +81,20 @@ var Backbone = Backbone || {};
          * @param modelOrCollection Model or collection
          * @param data Raw data to be messaged
          * @param options sync method options, to be passed in request trigger
-         * @param callback Callback on message completion
          * @private
          */
-        _sendBackgroundPageMessage: function(modelOrCollection, data, options, callback)
+        _sendBackgroundPageMessage: function(modelOrCollection, data, options)
         {
+            var that = this;
+            function callback(resp)
+            {
+                if (chrome.runtime.lastError == null) {
+                    options.success(resp[that._options['respKeyName']]);
+                } else {
+                    options.error(chrome.runtime.lastError);
+                }
+            }
+
             modelOrCollection.trigger('request', modelOrCollection, data, options);
             chrome.runtime.sendMessage(data, callback);
         },
@@ -99,20 +108,10 @@ var Backbone = Backbone || {};
          */
         _createRecord: function(model, options)
         {
-            var that = this;
-            function callback(resp)
-            {
-                if (chrome.runtime.lastError == null) {
-                    options.success(resp[that._options['respKeyName']]);
-                } else {
-                    options.error(chrome.runtime.lastError);
-                }
-            }
-
             var data = objectCopy(this._options['extraKeys']);
             data[this._options['reqKeyName']] = model.attributes;
             data[this._options['keyName']] = this._options['createKey'];
-            this._sendBackgroundPageMessage(model, data, options, callback);
+            this._sendBackgroundPageMessage(model, data, options);
         },
 
         /**
@@ -124,22 +123,12 @@ var Backbone = Backbone || {};
          */
         _readRecord: function(modelOrCollection, options)
         {
-            var that = this;
-            function callback(resp)
-            {
-                if (chrome.runtime.lastError == null) {
-                    options.success(resp[that._options['respKeyName']]);
-                } else {
-                    options.error(chrome.runtime.lastError);
-                }
-            }
-
             var data = objectCopy(this._options['extraKeys']);
             if (!(modelOrCollection instanceof Backbone.Collection)) {
                 data[this._options['reqKeyName']] = [{id: modelOrCollection.id}];
             }
             data[this._options['keyName']] = this._options['readKey'];
-            this._sendBackgroundPageMessage(modelOrCollection, data, options, callback);
+            this._sendBackgroundPageMessage(modelOrCollection, data, options);
         },
 
         /**
@@ -151,20 +140,10 @@ var Backbone = Backbone || {};
          */
         _updateRecord: function(model, options)
         {
-            var that = this;
-            function callback(resp)
-            {
-                if (chrome.runtime.lastError == null) {
-                    options.success(resp[that._options['respKeyName']]);
-                } else {
-                    options.error(chrome.runtime.lastError);
-                }
-            }
-
             var data = objectCopy(this._options['extraKeys']);
             data[this._options['reqKeyName']] = model.attributes;
             data[this._options['keyName']] = this._options['updateKey'];
-            this._sendBackgroundPageMessage(model, data, options, callback);
+            this._sendBackgroundPageMessage(model, data, options);
         },
 
         /**
@@ -176,19 +155,10 @@ var Backbone = Backbone || {};
          */
         _deleteRecord: function(model, options)
         {
-            function callback()
-            {
-                if (chrome.runtime.lastError == null) {
-                    options.success({});
-                } else {
-                    options.error(chrome.runtime.lastError);
-                }
-            }
-
             var data = objectCopy(this._options['extraKeys']);
             data[this._options['reqKeyName']] = {id: model.id};
             data[this._options['keyName']] = this._options['deleteKey'];
-            this._sendBackgroundPageMessage(model, data, options, callback);
+            this._sendBackgroundPageMessage(model, data, options);
         },
 
         /**
