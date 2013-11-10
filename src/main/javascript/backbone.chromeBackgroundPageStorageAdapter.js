@@ -33,6 +33,11 @@ var Backbone = Backbone || {};
             deleteKey:   'deleteRecord',
 
             /*
+              Request key name for sending items in the initial message call
+             */
+            reqKeyName:  'items',
+
+            /*
               Response key name for finding items to send in the sync success callback
              */
             respKeyName: 'items',
@@ -88,7 +93,8 @@ var Backbone = Backbone || {};
                 }
             }
 
-            var data = this._options['extraKeys'].concat(model.attributes);
+            var data = this._options['extraKeys'].concat();
+            data[this._options['reqKeyName']] = model.attributes;
             data[this._options['keyName']] = this._options['createKey'];
             this._sendBackgroundPageMessage(model, data, options, callback);
         },
@@ -112,11 +118,9 @@ var Backbone = Backbone || {};
                 }
             }
 
-            var data;
-            if (modelOrCollection instanceof Backbone.Collection) {
-                data = this._options['extraKeys'].concat();
-            } else {
-                data = this._options['extraKeys'].concat({id: modelOrCollection.id});
+            var data = this._options['extraKeys'].concat();
+            if (!modelOrCollection instanceof Backbone.Collection) {
+                data[this._options['reqKeyName']] = {id: modelOrCollection.id};
             }
             data[this._options['keyName']] = this._options['readKey'];
             this._sendBackgroundPageMessage(modelOrCollection, data, options, callback);
@@ -141,7 +145,8 @@ var Backbone = Backbone || {};
                 }
             }
 
-            var data = this._options['extraKeys'].concat(model.attributes);
+            var data = this._options['extraKeys'].concat();
+            data[this._options['reqKeyName']] = model.attributes;
             data[this._options['keyName']] = this._options['updateKey'];
             this._sendBackgroundPageMessage(model, data, options, callback);
         },
@@ -164,7 +169,8 @@ var Backbone = Backbone || {};
                 }
             }
 
-            var data = this._options['extraKeys'].concat({id: model.id});
+            var data = this._options['extraKeys'].concat();
+            data[this._options['reqKeyName']] = {id: model.id};
             data[this._options['keyName']] = this._options['deleteKey'];
             this._sendBackgroundPageMessage(model, data, options, callback);
         },
