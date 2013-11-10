@@ -43,10 +43,11 @@ var Backbone = Backbone || {};
               Set the key name and the value that is used when performing each CRUD operation
              */
             keyName:     'method',
-            createKey:   'createRecord',
-            readKey:     'readRecord',
-            updateKey:   'updateRecord',
-            deleteKey:   'deleteRecord',
+            createRecordKey:   'createRecord',
+            readRecordKey:     'readRecord',
+            readCollectionKey: 'readCollection',
+            updateRecordKey:   'updateRecord',
+            deleteRecordKey:   'deleteRecord',
 
             /*
               Request key name for sending items in the initial message call
@@ -59,7 +60,7 @@ var Backbone = Backbone || {};
             respKeyName: 'items',
 
             /*
-              Array of additional static data sent in each request to the background page
+              Additional static data sent in each request to the background page
              */
             extraAttributes:   {}
         };
@@ -110,7 +111,7 @@ var Backbone = Backbone || {};
         {
             var data = objectCopy(this._options['extraAttributes']);
             data[this._options['reqKeyName']] = model.attributes;
-            data[this._options['keyName']] = this._options['createKey'];
+            data[this._options['keyName']] = this._options['createRecordKey'];
             this._sendBackgroundPageMessage(model, data, options);
         },
 
@@ -124,10 +125,13 @@ var Backbone = Backbone || {};
         _readRecord: function(modelOrCollection, options)
         {
             var data = objectCopy(this._options['extraAttributes']);
-            if (!(modelOrCollection instanceof Backbone.Collection)) {
+            if (modelOrCollection instanceof Backbone.Collection) {
+                data[this._options['keyName']] = this._options['readCollectionKey'];
+            } else {
                 data[this._options['reqKeyName']] = [{id: modelOrCollection.id}];
+                data[this._options['keyName']] = this._options['readRecordKey'];
             }
-            data[this._options['keyName']] = this._options['readKey'];
+
             this._sendBackgroundPageMessage(modelOrCollection, data, options);
         },
 
@@ -142,7 +146,7 @@ var Backbone = Backbone || {};
         {
             var data = objectCopy(this._options['extraAttributes']);
             data[this._options['reqKeyName']] = model.attributes;
-            data[this._options['keyName']] = this._options['updateKey'];
+            data[this._options['keyName']] = this._options['updateRecordKey'];
             this._sendBackgroundPageMessage(model, data, options);
         },
 
@@ -157,7 +161,7 @@ var Backbone = Backbone || {};
         {
             var data = objectCopy(this._options['extraAttributes']);
             data[this._options['reqKeyName']] = {id: model.id};
-            data[this._options['keyName']] = this._options['deleteKey'];
+            data[this._options['keyName']] = this._options['deleteRecordKey'];
             this._sendBackgroundPageMessage(model, data, options);
         },
 

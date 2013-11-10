@@ -20,10 +20,10 @@
         var TestModel = Backbone.Model.extend({
             backgroundPageStorage: new Backbone.ChromeBackgroundPageStorageAdapter({
                 keyName:     'function',
-                createKey:   'insert',
-                readKey:     'select',
-                updateKey:   'update',
-                deleteKey:   'delete',
+                createRecordKey:   'insert',
+                readRecordKey:     'select',
+                updateRecordKey:   'update',
+                deleteRecordKey:   'delete',
 
                 reqKeyName:  'records',
                 respKeyName: 'records'
