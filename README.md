@@ -84,6 +84,23 @@ You can change the key names and values used in the request object passed to bac
 keys to use when attaching an instance of the ChromeBackgroundPageStorageAdapter class to your models and
 collections.
 
+To do this, specify the correct options in the operations parameter passed to the constructor of
+ChromeBackgroundPageStorageAdapter.
+
+### Options
+
+Options are:
+
+* keyName - Key name passed in the request that will contain the individual action name to be performed.
+* createRecordKey - The model create record action name, as set as a value in the keyName option attribute when requesting the creation of a new record from the background page.
+* readRecordKey - The model read record action name, as set as a value in the keyName option attribute when requesting the read of an existing record from the background page.
+* updateRecordKey - The update record action name, as set as a value in the keyName option attribute when requesting the update of an existing record from the background page.
+* deleteRecordKey - The delete record action name, as set as a value in the keyName option attribute when requesting the deletion of an existing record from the background page.
+* readCollectionKey - The collection read records action name, as set as a value in the KeyName option attribute when requesting the read of existing records from the background page.
+* reqKeyName - The key name used in all requests when passing records to the background page.
+* respKeyName - The key name to expect in all responses passed back from the background page that will contain any data for records returned.
+* extraAttributes - An object of any extra static data that should be sent in the request.
+
 ## License
 
 Copyright 2013 Simon Paulger <spaulger@codezen.co.uk>
