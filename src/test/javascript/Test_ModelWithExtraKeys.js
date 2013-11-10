@@ -19,7 +19,7 @@
     describe("A unit test for checking the storage adapter", function() {
         var TestModel = Backbone.Model.extend({
             backgroundPageStorage: new Backbone.ChromeBackgroundPageStorageAdapter({
-                extraKeys: {key1: 'foo', key2: 'bar', key3: 'baz'}
+                extraAttributes: {key1: 'foo', key2: 'bar', key3: 'baz'}
             }),
 
             sync: function(method, model, options)

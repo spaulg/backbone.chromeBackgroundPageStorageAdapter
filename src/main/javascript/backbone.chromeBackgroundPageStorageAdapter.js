@@ -61,7 +61,7 @@ var Backbone = Backbone || {};
             /*
               Array of additional static data sent in each request to the background page
              */
-            extraKeys:   {}
+            extraAttributes:   {}
         };
 
         this._options = objectCopy(this._options, options);
@@ -108,7 +108,7 @@ var Backbone = Backbone || {};
          */
         _createRecord: function(model, options)
         {
-            var data = objectCopy(this._options['extraKeys']);
+            var data = objectCopy(this._options['extraAttributes']);
             data[this._options['reqKeyName']] = model.attributes;
             data[this._options['keyName']] = this._options['createKey'];
             this._sendBackgroundPageMessage(model, data, options);
@@ -123,7 +123,7 @@ var Backbone = Backbone || {};
          */
         _readRecord: function(modelOrCollection, options)
         {
-            var data = objectCopy(this._options['extraKeys']);
+            var data = objectCopy(this._options['extraAttributes']);
             if (!(modelOrCollection instanceof Backbone.Collection)) {
                 data[this._options['reqKeyName']] = [{id: modelOrCollection.id}];
             }
@@ -140,7 +140,7 @@ var Backbone = Backbone || {};
          */
         _updateRecord: function(model, options)
         {
-            var data = objectCopy(this._options['extraKeys']);
+            var data = objectCopy(this._options['extraAttributes']);
             data[this._options['reqKeyName']] = model.attributes;
             data[this._options['keyName']] = this._options['updateKey'];
             this._sendBackgroundPageMessage(model, data, options);
@@ -155,7 +155,7 @@ var Backbone = Backbone || {};
          */
         _deleteRecord: function(model, options)
         {
-            var data = objectCopy(this._options['extraKeys']);
+            var data = objectCopy(this._options['extraAttributes']);
             data[this._options['reqKeyName']] = {id: model.id};
             data[this._options['keyName']] = this._options['deleteKey'];
             this._sendBackgroundPageMessage(model, data, options);
