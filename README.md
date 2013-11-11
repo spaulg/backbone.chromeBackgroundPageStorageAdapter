@@ -48,29 +48,29 @@ function onMessageCallback(request, sender, sendResponse) {
         case 'readBackboneCollection':
             // ... do something to fetch the data and populate the
             // sendResponse object with the items key
-            // e.g. sendResponse = {records: [{id: 1, name: 'Jim'}, {id: 2, name: 'Bob'}]}
+            // e.g. sendResponse({records: [{id: 1, name: 'Jim'}, {id: 2, name: 'Bob'}]});
             break;
 
         case 'readBackboneRecord':
             // ... do something to fetch the data and populate the
             // sendResponse object with the items key
-            // e.g. sendResponse = {records: {id: 1, name: 'Jim'}}
+            // e.g. sendResponse({records: {id: 1, name: 'Jim'}});
             break;
 
         case 'createBackboneRecord':
             // ... do something to create the record. Make sure to populate
             // the sendResponse object with an id attribute.
-            // e.g. sendResponse = {records: {id: 1}}
+            // e.g. sendResponse({records: {id: 1}});
             break;
 
         case 'updateBackboneRecord':
             // ... do something to update the record, no need to
-            // return any data here
+            // e.g. sendResponse({}); // return any data here
             break;
 
         case 'deleteBackboneRecord':
             // ... do something to delete the record, no need to
-            // return any data here
+            // e.g. sendResponse({}); // return any data here
             break;
     }
 }
